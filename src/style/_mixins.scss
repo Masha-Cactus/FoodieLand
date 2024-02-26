@@ -1,0 +1,34 @@
+@import './variables';
+
+@mixin on-tablet {
+  @media (min-width: $tablet-min-width) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: $desktop-min-width) {
+    @content;
+  }
+}
+
+@mixin hover($_property, $_toValue) {
+  transition: #{$_property} 400ms;
+
+  &:hover {
+    #{$_property}: $_toValue;
+    @content;
+  }
+}
+
+@mixin inline-padding-control {
+  padding-inline: 70px;
+
+  // @include on-tablet {
+  //   padding-inline: 72px;
+  // }
+
+  // @media (min-width: $big-desktop-min-width) {
+  //   padding-inline: 152px;
+  // }
+}

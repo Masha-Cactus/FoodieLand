@@ -1,0 +1,11 @@
+@import './../../style/extends';
+
+.FavoritesPage {
+  &__title {
+    @extend %h1;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+}

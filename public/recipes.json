@@ -1,0 +1,82 @@
+[
+  {
+      "recipeId": 782585,
+      "title": "Cannellini Bean and Asparagus Salad with Mushrooms",
+      "imageUrl": "https://spoonacular.com/recipeImages/782585-312x231.jpg",
+      "rating": 3.5,
+      "category": ["snack"],
+      "cookingTimeInMinutes": 45
+  },
+  {
+      "recipeId": 715497,
+      "title": "Berry Banana Breakfast Smoothie",
+      "imageUrl": "https://spoonacular.com/recipeImages/715497-312x231.jpg",
+      "rating": 4.3,
+      "category": ["dinner"],
+      "cookingTimeInMinutes": 20
+  },
+  {
+      "recipeId": 715415,
+      "title": "Red Lentil Soup with Chicken and Turnips",
+      "imageUrl": "https://spoonacular.com/recipeImages/715415-312x231.jpg",
+      "rating": 3.5,
+      "category": ["dinner"],
+      "cookingTimeInMinutes": 120
+  },
+  {
+      "recipeId": 716406,
+      "title": "Asparagus and Pea Soup: Real Convenience Food",
+      "imageUrl": "https://spoonacular.com/recipeImages/716406-312x231.jpg",
+      "rating": 3.5,
+      "category": ["snack"],
+      "cookingTimeInMinutes": 45
+  },
+  {
+      "recipeId": 644387,
+      "title": "Garlicky Kale",
+      "imageUrl": "https://spoonacular.com/recipeImages/644387-312x231.jpg",
+      "rating": 3.5,
+      "category": ["lunch"],
+      "cookingTimeInMinutes": 45
+  },
+  {
+      "recipeId": 715446,
+      "title": "Slow Cooker Beef Stew",
+      "imageUrl": "https://spoonacular.com/recipeImages/715446-312x231.jpg",
+      "rating": 3.5,
+      "category": ["snack"],
+      "cookingTimeInMinutes": 45
+  },
+  {
+      "recipeId": 782601,
+      "title": "Red KrecipeIdney Bean Jambalaya",
+      "imageUrl": "https://spoonacular.com/recipeImages/782601-312x231.jpg",
+      "rating": 3.5,
+      "category": ["breakfast"],
+      "cookingTimeInMinutes": 45
+  },
+  {
+      "recipeId": 795751,
+      "title": "Chicken Fajita Stuffed Bell Pepper",
+      "imageUrl": "https://spoonacular.com/recipeImages/795751-312x231.jpg",
+      "rating": 3.5,
+      "category": ["lunch"],
+      "cookingTimeInMinutes": 90
+  },
+  {
+      "recipeId": 716426,
+      "title": "Cauliflower, Brown Rice, and Vegetable Fried Rice",
+      "imageUrl": "https://spoonacular.com/recipeImages/716426-312x231.jpg",
+      "rating": 3.5,
+      "category": ["lunch"],
+      "cookingTimeInMinutes": 15
+  },
+  {
+      "recipeId": 766453,
+      "title": "Hummus and Za'atar",
+      "imageUrl": "https://spoonacular.com/recipeImages/766453-312x231.jpg",
+      "rating": 3.5,
+      "category": ["breakfast"],
+      "cookingTimeInMinutes": 30
+  }
+]

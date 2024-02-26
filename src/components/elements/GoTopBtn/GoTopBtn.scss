@@ -1,0 +1,15 @@
+@import './../../../style/extends';
+
+.GoTopBtn {
+  height: 25px;
+  width: 25px;
+  border-radius: 100px;
+  border: 1px solid $main-color;
+  &__icon {
+    height: 16px;
+    width: 16px;
+    background-image: url(./../../../assets/icons/up.svg);
+
+    @extend %icon;
+  }
+}

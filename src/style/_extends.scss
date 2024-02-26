@@ -1,0 +1,60 @@
+%h1 {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 78.14px;
+  // letter-spacing: -4%;
+
+  // @include on-tablet {
+  //   font-size: 26px;
+  // }
+}
+
+  %h2 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58.61px;
+    // letter-spacing: -4%;
+  }
+
+  %h3 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 43.96px;
+    // letter-spacing: -4%;
+  }
+
+  %h4 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29.3px;
+    // letter-spacing: -4em;
+  }
+
+  %h5 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    // letter-spacing: -4%;
+  }
+
+  %body-text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    opacity: 60%;
+  }
+
+  %small-text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    // letter-spacing: -2%;
+  }
+
+  %icon {
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }

@@ -1,0 +1,24 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 70px;
+
+  &__icons {
+    display: flex;
+    gap: 40px;
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+
+    &--heart {
+      background-image: url('./../../assets/icons/heart.svg');
+    }
+
+    &--user{
+      background-image: url('./../../assets/icons/user.svg');
+    }
+  }
+}

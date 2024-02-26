@@ -1,0 +1,9 @@
+.NavList {
+  display: flex;
+  gap: 19px;
+
+  &--footer {
+    flex-direction: column;
+    color: #FFF;
+  }
+}
