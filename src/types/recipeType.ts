@@ -14,37 +14,28 @@ export interface RecipeDetailType {
   ingredients: Ingredient[];
   steps: { description: string }[];
   summary: string;
+  cuisines: string[];
   nutrition: {
     calories: number;
     totalFat: number;
     protein: number;
     carbohydrate: number;
     cholesterol: number;
-  }
+  };
+  diet: {
+    vegetarian: false,
+    vegan: false,
+    glutenFree: false,
+    dairyFree: false,
+    veryHealthy: true,
+  };
 }
 
 export interface RecipeType {
   recipeId: number;
   title: string;
-  // quantity: number;
   cookingTimeInMinutes: number;
   category: string[];
   imageUrl: string;
   rating: number;
 }
-
-// export interface RecipeType {
-//   results: {
-//     id: number;
-//     name: string;
-//     quantity: number;
-//     cookingTimeInMinutes: number;
-//     category: string;
-//     imageUrl: string;
-//     rating: number;
-//   }
-// }
-
-// export interface RecipeResType {
-//   results: RecipeType[];
-// }

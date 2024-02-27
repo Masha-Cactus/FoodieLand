@@ -1,4 +1,16 @@
+@import './../../../style/variables';
+
 .Logo {
   font-family: "Lobster", sans-serif;
   font-weight: 400;
+  color: $dark;
+  cursor: pointer;
+
+  &--bottom {
+    color: $white;
+  }
+
+  &__dot {
+    color: $accentColor;
+  }
 }

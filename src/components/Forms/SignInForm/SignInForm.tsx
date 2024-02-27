@@ -2,65 +2,38 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import {
   FormHelperText,
-  Button,
-  Container,
   InputLabel,
   IconButton,
-  OutlinedInput,
   InputAdornment,
-  FormControl,
 } from '@mui/material';
-import './SignInForm.scss';
 import { makeStyles } from '@mui/styles';
+import { CssFormContol } from '../../MUI components/CssFormControl';
+import { CssContainer } from '../../MUI components/CssContainer';
+import { CssSubmitButton } from '../../MUI components/CssSubmitBtn';
+import { CssInputField } from '../../MUI components/CssInputField';
+import classNames from 'classnames';
 
 const useStyles = makeStyles({
-  box: {
-    paddingInline: 0,
-    paddingLeft: 0,
-  },
-  root: {
+  form: {
     width: 420,
-    height: 430,
-    backgroundColor: '#fff',
     display: 'flex',
     gap: 16,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 0,
-  },
-  field: {
-    height: 45,
-    width: 425,
-    paddingBlock: 27,
-    paddingInline: 14,
-    display: 'flex',
-  },
-  btn: {
-    height: 45,
-    width: 425,
-    paddingBlock: 27,
-    paddingInline: 14,
-    display: 'flex',
-    borderColor: 'blue',
-    backgroundColor: '#717171',
-    '&:hover': {
-      backgroundColor: '#E0E0E0',
-      borderColor: 'red',
-    },
-  },
-  password: {
-    paddingBottom: 14,
   },
 });
 
 const SignInForm = () => {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   // const [success, setSuccess] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
+  const isFormFilled = !!userName.length
+  && !!email.length
+  && !!password.length;
 
   const classes = useStyles();
 
@@ -76,7 +49,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, password, errMsg]);
+  }, [userName, email, password, errMsg]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -85,50 +58,48 @@ const SignInForm = () => {
   };
 
   return (
-    <Container className={classes.box} sx={{ paddingLeft: 0 }}>
+    <CssContainer>
       <form
         noValidate
         autoComplete="off"
         action=""
         onSubmit={handleSubmit}
-        className={classes.root}
+        className={classes.form}
       >
 
-        <FormControl
-          className={classes.password}
-          required
-        >
+        <CssFormContol required>
+          <InputLabel variant='outlined'>UserName</InputLabel>
+          <CssInputField
+            id="userName"
+            aria-describedby="userName"
+            onChange={e => setUserName(e.target.value)}
+            type="text"
+            label="UserName"
+            placeholder="Enter your UserName"
+          />
+          <FormHelperText id="userName">
+            Some important text about userName
+          </FormHelperText>
+        </CssFormContol>
+
+        <CssFormContol required>
           <InputLabel htmlFor="email">Email</InputLabel>
-          <OutlinedInput
-            className={classes.field}
+          <CssInputField
             id="email"
             aria-describedby="email"
-            onChange={e => setUser(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             type="email"
             label="Email"
             placeholder="example@gmail.com"
-            // sx={{
-            //   borderColor: 'initial',
-            //   '&:focus': {
-            //     borderColor: '#E0E0E0',
-            //   },
-            // }}
           />
           <FormHelperText id="email">
             Some important text about email
           </FormHelperText>
-        </FormControl>
+        </CssFormContol>
 
-        <FormControl
-          className={classes.password}
-          variant="outlined"
-          required
-        >
-          <InputLabel
-            htmlFor="password"
-          >Password</InputLabel>
-          <OutlinedInput
-            className={classes.field}
+        <CssFormContol required>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <CssInputField
             onChange={e => setPassword( e.target.value)}
             id="password"
             label="Password"
@@ -149,26 +120,23 @@ const SignInForm = () => {
             placeholder="********"
           />
           <FormHelperText id="password-text">
-            Some important text
+            Some important text about password
           </FormHelperText>
-        </FormControl>
+        </CssFormContol>
 
-        <Button
-          className={classes.btn}
+        <CssSubmitButton
           type="submit"
           variant="contained"
-          color="secondary"
-          sx={{
-            backgroundColor: '#717171',
-            '&:hover': {
-              backgroundColor: '#E0E0E0',
-            },
-          }}
+          disabled={isFormFilled}
+          className={classNames({
+            'filled': isFormFilled,
+          },
+          )}
         >
           Sign In
-        </Button>
+        </CssSubmitButton>
       </form>
-    </Container>
+    </CssContainer>
   );
 };
 

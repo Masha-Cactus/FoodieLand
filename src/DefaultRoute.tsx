@@ -4,8 +4,7 @@ import { useAppDispatch } from './store/hooks';
 import './App.scss';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import SignInModal from './pages/SignInModal/SignInModal';
-import SignUpModal from './pages/SignUpModal/SignUpModal';
+import SignInModal from './pages/SignModal/SignModal';
 import { fetchRecipes } from './features/recipesSlice';
 
 export const DefaultRoute = () => {
@@ -19,7 +18,6 @@ export const DefaultRoute = () => {
     <div className="App">
       <Header />
       <SignInModal />
-      <SignUpModal />
 
       <main className="App__main">
         <Outlet />

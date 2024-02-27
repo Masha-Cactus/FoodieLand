@@ -1,8 +1,12 @@
+@import './../../style/variables';
+
 .Header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  height: 70px;
+  align-items: center;
+  height: 110px;
+  border-bottom: 1px solid $headerLineColor;
+  padding-inline: 90px;
 
   &__icons {
     display: flex;

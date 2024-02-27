@@ -2,49 +2,44 @@
 import { useEffect, useState } from 'react';
 import { createUser } from '../../../api/user';
 import {
-  Button,
-  Container,
-  FormControl,
   FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
-  OutlinedInput,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
+import { CssFormContol } from '../../MUI components/CssFormControl';
+import { CssContainer } from '../../MUI components/CssContainer';
+import { CssSubmitButton } from '../../MUI components/CssSubmitBtn';
+import { CssInputField } from '../../MUI components/CssInputField';
+import classNames from 'classnames';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
-const PSW_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]){7,24}/;
+const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
+const EMAIL_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]){7,24}/;
 
 const useStyles = makeStyles({
-  root: {
-    width: 425,
-    backgroundColor: '#fff',
+  form: {
+    width: 420,
     display: 'flex',
-    gap: 22,
+    gap: 16,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  field: {
-    height: 45,
-    width: 425,
-    paddingBlock: 27,
-    paddingInline: 14,
-    display: 'flex',
-  },
-  password: {
-    paddingBottom: 14,
   },
 });
 
 const SignUpForm = () => {
   const classes = useStyles();
-  const [user, setUser] = useState({
-    userEmail: '',
-    validUserEmail: false,
-    userEmailError: false,
+  const [name, setName] = useState({
+    userName: '',
+    validUserName: false,
+    userNameError: false,
+  });
+  const [userEmail, setUserEmail] = useState({
+    email: '',
+    validEmail: false,
+    emailError: false,
   });
   const [password, setPassword] = useState({
     pwd: '',
@@ -57,15 +52,25 @@ const SignUpForm = () => {
     matchPwdError: false,
   });
 
-  const { userEmail, validUserEmail, userEmailError } = user;
+  const { userName, validUserName, userNameError } = name;
+  const { email, validEmail, emailError } = userEmail;
   const { pwd, validPwd, pwdError } = password;
   const { matchPwd, validMatchPwd, matchPwdError } = matchPassword;
+  const isFormFilled = !!userName.length
+  && !!email.length
+  && !!pwd.length
+  && !!matchPwd.length;
+  const isFormValid = validUserName && validEmail && validPwd && validMatchPwd;
 
   const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
-    setUser(curr => ({ ...curr, userEmailError: false }));
-  }, [userEmail]);
+    setName(curr => ({ ...curr, userNameError: false }));
+  }, [userName]);
+
+  useEffect(() => {
+    setUserEmail(curr => ({ ...curr, emailError: false }));
+  }, [email]);
 
   useEffect(() => {
     setPassword(curr => ({ ...curr, pwdError: false }));
@@ -76,16 +81,22 @@ const SignUpForm = () => {
   }, [matchPwd]);
 
   const validate = () => {
-    setUser(curr => ({
+    setName(curr => ({
       ...curr,
-      validUserEmail: USER_REGEX.test(userEmail),
-      userEmailError: !USER_REGEX.test(userEmail),
+      validUserName: USERNAME_REGEX.test(userName),
+      userNameError: !USERNAME_REGEX.test(userName),
+    }));
+
+    setUserEmail(curr => ({
+      ...curr,
+      validEmail: EMAIL_REGEX.test(email),
+      emailError: !EMAIL_REGEX.test(email),
     }));
 
     setPassword(curr => ({
       ...curr,
-      validPwd: PSW_REGEX.test(pwd),
-      pwdError: !PSW_REGEX.test(pwd),
+      validPwd: PWD_REGEX.test(pwd),
+      pwdError: !PWD_REGEX.test(pwd),
     }));
 
     setMatchPassword(curr => ({
@@ -101,9 +112,9 @@ const SignUpForm = () => {
     e.preventDefault();
     validate();
 
-    if (validUserEmail && validPwd && validMatchPwd) {
+    if (isFormValid) {
       try {
-        const response = await createUser({ userEmail, pwd });
+        const response = await createUser({ userName, email, pwd });
 
         console.log('response', response);
       } catch (error) {
@@ -139,27 +150,43 @@ const SignUpForm = () => {
   };
 
   return (
-    <Container>
+    <CssContainer>
       <form
         noValidate
         autoComplete="off"
         action=""
         onSubmit={handleSubmit}
-        className={classes.root}
+        className={classes.form}
       >
-
-        <FormControl
-          className={classes.password}
+        <CssFormContol
           required
-          error={userEmailError}
+          error={userNameError}
+        >
+          <InputLabel htmlFor="userName">UserName</InputLabel>
+          <CssInputField
+            id="userName"
+            aria-describedby="userName"
+            onChange={e => setName(cur => (
+              { ...cur, userName: e.target.value }))}
+            type="text"
+            placeholder="example@gmail.com"
+            label="UserName"
+          />
+          <FormHelperText id="userName">
+            Some important text about userName
+          </FormHelperText>
+        </CssFormContol>
+
+        <CssFormContol
+          required
+          error={emailError}
         >
           <InputLabel htmlFor="email">Email</InputLabel>
-          <OutlinedInput
-            className={classes.field}
+          <CssInputField
             id="email"
             aria-describedby="email"
-            onChange={e => setUser(cur => (
-              { ...cur, userEmail: e.target.value }))}
+            onChange={e => setUserEmail(cur => (
+              { ...cur, email: e.target.value }))}
             type="email"
             placeholder="example@gmail.com"
             label="Email"
@@ -167,17 +194,14 @@ const SignUpForm = () => {
           <FormHelperText id="email">
             Some important text about email
           </FormHelperText>
-        </FormControl>
+        </CssFormContol>
 
-        <FormControl
-          className={classes.password}
-          variant="outlined"
+        <CssFormContol
           required
           error={pwdError}
         >
           <InputLabel htmlFor="password">Password</InputLabel>
-          <OutlinedInput
-            className={classes.field}
+          <CssInputField
             id="password"
             aria-describedby="password-text"
             onChange={e => setPassword(c => ({ ...c, pwd: e.target.value }))}
@@ -199,17 +223,14 @@ const SignUpForm = () => {
           <FormHelperText id="password-text">
             Some important text
           </FormHelperText>
-        </FormControl>
+        </CssFormContol>
 
-        <FormControl
-          className={classes.password}
-          variant="outlined"
+        <CssFormContol
           required
           error={matchPwdError}
         >
           <InputLabel htmlFor="matchPassword">Confirm Password</InputLabel>
-          <OutlinedInput
-            className={classes.field}
+          <CssInputField
             id="matchPassword"
             aria-describedby="matchPassword-text"
             onChange={e => setMatchPassword(curr => (
@@ -233,18 +254,21 @@ const SignUpForm = () => {
           <FormHelperText id="password-text">
             Some important text
           </FormHelperText>
-        </FormControl>
+        </CssFormContol>
 
-        <Button
-          className={classes.field}
+        <CssSubmitButton
           type="submit"
           variant="contained"
-          color="secondary"
+          disabled={isFormFilled}
+          className={classNames({
+            'filled': isFormFilled,
+          },
+          )}
         >
           Submit
-        </Button>
+        </CssSubmitButton>
       </form>
-    </Container>
+    </CssContainer>
   );
 };
 

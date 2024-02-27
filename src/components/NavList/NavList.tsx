@@ -9,11 +9,6 @@ type Props = {
   place?: string;
 };
 
-const getLinkNavClass = ({ isActive }: { isActive: boolean }) =>
-  classNames('NavList__link', {
-    'is-active': isActive,
-  });
-
 const getPath = (link: string) => {
   if (link === 'home') {
     return './';
@@ -27,6 +22,12 @@ const getPath = (link: string) => {
 };
 
 const NavBar: React.FC<Props> = ({ links, place }) => {
+  const getLinkNavClass = ({ isActive }: { isActive: boolean }) =>
+    classNames('NavList__link', {
+      'is-active': isActive,
+      'NavList__link--footer': place,
+    });
+
   return (
     <ul className={classNames('NavList', {
       'NavList--footer' : place,

@@ -1,12 +1,24 @@
+import { NavLink } from 'react-router-dom';
 import './Logo.scss';
+import classNames from 'classnames';
+import React from 'react';
 
-const Logo = () => {
+type Props = {
+  place?: boolean;
+};
+
+const Logo: React.FC<Props> = ({ place }) => {
   return (
-    <div className='Logo'>
+    <NavLink
+      to='/'
+      className={classNames('Logo', {
+        'Logo--bottom': place,
+      })}
+    >
       Foodieland
-    </div>
+      <span className='Logo__dot'>.</span>
+    </NavLink>
   );
 };
 
 export default Logo;
-

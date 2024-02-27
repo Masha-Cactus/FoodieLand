@@ -5,8 +5,10 @@
 .App {
   text-align: center;
   font-family: Helvetica, sans-serif;
-  color: $main-color;
+  color: $dark;
 
-  @include inline-padding-control;
+  &__main {
+    @include inline-padding-control;
+  }
 }
 

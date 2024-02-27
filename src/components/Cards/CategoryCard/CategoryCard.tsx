@@ -14,7 +14,7 @@ const CategoryCard:React.FC<Props> = ({ category }) => {
         alt={category.type}
         className='CategoryCard__image'
       />
-      <p>{capitalize(category.type)}</p>
+      <p className='CategoryCard__name'>{capitalize(category.type)}</p>
     </article>
   );
 };

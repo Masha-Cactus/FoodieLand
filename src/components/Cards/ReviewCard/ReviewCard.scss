@@ -1,0 +1,34 @@
+@import './../../../style/extends';
+
+.ReviewCard {
+  background-color: $white;
+  padding: 24px;
+
+  &__top {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    @extend %h4;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+
+  &__data {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__date {
+    @extend %smallest-text;
+  }
+}

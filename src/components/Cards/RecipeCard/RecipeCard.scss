@@ -5,13 +5,9 @@
   display: flex;
   flex-direction: column;
   padding: 24px 24px 32px;
-  // width: 359px;
   width: 100%;
-  background-color: #F9F9F1;
-
+  background-color: $lightLightGrey;
   &__image {
-    // height: 242px;
-    // width: 359px;
     width: 100%;
     object-fit: contain;
   }

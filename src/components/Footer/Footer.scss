@@ -1,8 +1,52 @@
-@import './../../style/variables';
+@import './../../style/extends';
 
 .Footer {
   display: flex;
   height: 355px;
-  background-color: $main-color;
-  color: #FFF;
+  background-color: $dark;
+  color: $white;
+  padding: 58px 155px 90px;
+  justify-content: space-between;
+
+  &__title {
+    color: $white;
+    margin-bottom: 24px;
+
+    @extend %h5;
+  }
+
+  &__icons {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__icon-keeper {
+    height: 32px;
+    width: 32px;
+    border-radius: 100px;
+    background-color: $iconKeeperColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    height: 17.5px;
+    width: 17.5px;
+    color: $white;
+
+    @extend %icon;
+    &--insta {
+      background-image: url(./../../assets/icons/insta.svg);
+    }
+    &--ball {
+      background-image: url(./../../assets/icons/ball.svg);
+    }
+    &--twitter {
+      background-image: url(./../../assets/icons/twitter.svg);
+    }
+    &--youtube {
+      background-image: url(./../../assets/icons/youtube.svg);
+    }
+  }
 }
