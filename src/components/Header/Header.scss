@@ -1,4 +1,5 @@
-@import './../../style/variables';
+@import './../../style/extends';
+@import './../../style/mixins';
 
 .Header {
   display: flex;
@@ -11,11 +12,17 @@
   &__icons {
     display: flex;
     gap: 40px;
+    align-items: center;
   }
 
   &__icon {
     height: 24px;
     width: 24px;
+    cursor: pointer;
+
+    @include hover(transform, scale($scaleSize));
+
+    @extend %icon;
 
     &--heart {
       background-image: url('./../../assets/icons/heart.svg');

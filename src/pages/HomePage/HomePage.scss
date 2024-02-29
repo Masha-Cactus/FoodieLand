@@ -38,6 +38,11 @@
       align-items: flex-start;
       grid-template-columns: repeat(12, 1fr);
     }
+
+    &--review {
+      padding-block: 80px;
+      background-color: $lightGrey;
+    }
   }
 
   &__content {

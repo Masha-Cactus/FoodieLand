@@ -1,0 +1,46 @@
+@import './../../../style/extends';
+
+.ArticleCard {
+  display: flex;
+  gap: 20px;
+
+  &__image {
+    height: 200px;
+    object-fit: contain;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding-block: 13.5px;
+  }
+
+  &__title {
+    text-align: start;
+
+    @extend %h5;
+  }
+
+  &__description {
+    text-align: start;
+
+    @extend %body-text;
+  }
+
+  &__data {
+    display: flex;
+    gap: 98px;
+
+  }
+  &__author {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.5px;
+  }
+
+  &__date {
+    @extend %small-text;
+  }
+}

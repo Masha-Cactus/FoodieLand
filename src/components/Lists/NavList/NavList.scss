@@ -1,0 +1,41 @@
+@import './../../../style/extends';
+@import './../../../style/mixins';
+
+.NavList {
+  display: flex;
+  gap: 19px;
+  align-items: center;
+
+  &--footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    color: $white;
+  }
+
+  &__link {
+    color: $dark;
+    position: relative;
+    padding: 6px 8px;
+
+    @extend %link;
+    @include hover(color, #000);
+
+    // &.is-active {
+    //   &::after {
+    //     content: '';
+    //     position: absolute;
+    //     height: 2px;
+    //     width: 100%;
+    //     display: block;
+    //     bottom: -6px;
+    //     background-color: $dark;
+    //     border-radius: 3px;
+    //   }
+    // }
+
+    &--footer {
+      color: $white;
+    }
+  }
+}

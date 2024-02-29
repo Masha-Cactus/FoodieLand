@@ -31,10 +31,19 @@ const useStyles = makeStyles({
 
 const SignUpForm = () => {
   const classes = useStyles();
-  const [name, setName] = useState({
-    userName: '',
-    validUserName: false,
-    userNameError: false,
+  // const [user, setUser] = useState({
+  //   name:
+  //   lastname:
+  // })
+  const [userName, setUserName] = useState({
+    name: '',
+    validName: false,
+    nameError: false,
+  });
+  const [userLastname, setUserLastname] = useState({
+    lastname: '',
+    validLastname: false,
+    lastnameError: false,
   });
   const [userEmail, setUserEmail] = useState({
     email: '',
@@ -52,21 +61,33 @@ const SignUpForm = () => {
     matchPwdError: false,
   });
 
-  const { userName, validUserName, userNameError } = name;
+  const { name, validName, nameError } = userName;
+  const { lastname, validLastname, lastnameError } = userLastname;
   const { email, validEmail, emailError } = userEmail;
   const { pwd, validPwd, pwdError } = password;
   const { matchPwd, validMatchPwd, matchPwdError } = matchPassword;
-  const isFormFilled = !!userName.length
+
+  const isFormFilled = !!name.length
+  && !!lastname.length
   && !!email.length
   && !!pwd.length
   && !!matchPwd.length;
-  const isFormValid = validUserName && validEmail && validPwd && validMatchPwd;
+
+  const isFormValid = validName
+  && validLastname
+  && validEmail
+  && validPwd
+  && validMatchPwd;
 
   const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
-    setName(curr => ({ ...curr, userNameError: false }));
+    setUserName(curr => ({ ...curr, userNameError: false }));
   }, [userName]);
+
+  useEffect(() => {
+    setUserLastname(curr => ({ ...curr, lastnameError: false }));
+  }, [lastname]);
 
   useEffect(() => {
     setUserEmail(curr => ({ ...curr, emailError: false }));
@@ -81,10 +102,16 @@ const SignUpForm = () => {
   }, [matchPwd]);
 
   const validate = () => {
-    setName(curr => ({
+    setUserName(curr => ({
       ...curr,
-      validUserName: USERNAME_REGEX.test(userName),
-      userNameError: !USERNAME_REGEX.test(userName),
+      validName: USERNAME_REGEX.test(name),
+      nameError: !USERNAME_REGEX.test(name),
+    }));
+
+    setUserLastname(curr => ({
+      ...curr,
+      validUserLastname: USERNAME_REGEX.test(lastname),
+      userLastnameError: !USERNAME_REGEX.test(lastname),
     }));
 
     setUserEmail(curr => ({
@@ -114,7 +141,7 @@ const SignUpForm = () => {
 
     if (isFormValid) {
       try {
-        const response = await createUser({ userName, email, pwd });
+        const response = await createUser({ name, lastname, email, pwd });
 
         console.log('response', response);
       } catch (error) {
@@ -160,20 +187,39 @@ const SignUpForm = () => {
       >
         <CssFormContol
           required
-          error={userNameError}
+          error={nameError}
         >
-          <InputLabel htmlFor="userName">UserName</InputLabel>
+          <InputLabel htmlFor="name">Name</InputLabel>
           <CssInputField
-            id="userName"
-            aria-describedby="userName"
-            onChange={e => setName(cur => (
-              { ...cur, userName: e.target.value }))}
+            id="name"
+            aria-describedby="name"
+            onChange={e => setUserName(cur => (
+              { ...cur, name: e.target.value }))}
             type="text"
-            placeholder="example@gmail.com"
+            placeholder="Enter your Name"
             label="UserName"
           />
           <FormHelperText id="userName">
-            Some important text about userName
+            Some important text about Name
+          </FormHelperText>
+        </CssFormContol>
+
+        <CssFormContol
+          required
+          error={lastnameError}
+        >
+          <InputLabel htmlFor="userName">Lastname</InputLabel>
+          <CssInputField
+            id="lastname"
+            aria-describedby="lastname"
+            onChange={e => setUserLastname(cur => (
+              { ...cur, lastname: e.target.value }))}
+            type="text"
+            placeholder="Enter your Lastname"
+            label="Lastname"
+          />
+          <FormHelperText id="userName">
+            Some important text about Lastname
           </FormHelperText>
         </CssFormContol>
 

@@ -2,6 +2,7 @@
 
 .Footer {
   display: flex;
+  position: relative;
   height: 355px;
   background-color: $dark;
   color: $white;
@@ -12,7 +13,14 @@
     color: $white;
     margin-bottom: 24px;
 
-    @extend %h5;
+    @extend %h6;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   &__icons {
@@ -48,5 +56,12 @@
     &--youtube {
       background-image: url(./../../assets/icons/youtube.svg);
     }
+  }
+
+  &__text {
+    @extend %small-text;
+
+    font-weight: 400;
+    color: #F5F7FA;
   }
 }

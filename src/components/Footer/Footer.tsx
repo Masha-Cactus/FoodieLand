@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { navBarLinks } from '../../helpers/staticData';
-import NavBar from '../NavList/NavList';
+import NavBar from '../Lists/NavList/NavList';
 import Logo from '../elements/Logo/Logo';
 import './Footer.scss';
 import GoTopBtn from '../elements/GoTopBtn/GoTopBtn';
@@ -9,12 +9,15 @@ const links = navBarLinks;
 
 const Footer = () => {
   return (
-    <footer className='Footer'>
-      <Logo place/>
+    <footer className="Footer">
+      <div className="Footer__block">
+        <Logo place />
+        <p className="Footer__text">Copyright © 2024 All rights reserved</p>
+      </div>
 
       <div className="Footer__menu">
         <div className="Footer__title">Menu</div>
-        <NavBar links={links} place='footer' />
+        <NavBar links={links} place="footer" />
       </div>
 
       <div className="Footer__menu">
@@ -41,4 +44,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

@@ -8,6 +8,7 @@
     display: flex;
     gap: 16px;
     justify-content: flex-start;
+    align-items: center;
   }
 
   &__info {
@@ -16,16 +17,24 @@
   }
 
   &__title {
-    @extend %h4;
+    @extend %h5;
   }
 
   &__text {
+    text-align: start;
+
     @extend %body-text;
+
+    &--margin {
+      margin-top: 16px;
+    }
   }
 
   &__data {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
   }
 
   &__date {

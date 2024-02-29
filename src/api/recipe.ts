@@ -1,7 +1,6 @@
 import { client } from './axiosClient';
 import {
   RecipeDetailType,
-  // RecipeResType,
   RecipeType,
 } from '../types/recipeType';
 
@@ -9,13 +8,11 @@ import {
 
 export const getRecipes = () => {
   // return client.get<RecipeType[]>('/recipes');
-  // return client.get<RecipeResType>(`complexSearch?apiKey=${key}`);
   return client.get<RecipeType[]>('/recipes.json');
 };
 
 export const getRecipeById = (recipeId: number | null) => {
-  // return client.get<RecipeDetailType>(`/recipes/${recipeId}`);
-  return client.get<RecipeDetailType>(`/recipes/${recipeId}/information`);
+  return client.get<RecipeDetailType>(`/recipes/${recipeId}`);
 };
 
 export const createRecipe = (data: Omit<RecipeType, 'recipeId'>) => {

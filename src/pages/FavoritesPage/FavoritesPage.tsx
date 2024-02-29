@@ -15,7 +15,9 @@ const FavoritesPage: React.FC<Props> = ({}) => {
       <h1 className='FavoritesPage__title'>Favorites</h1>
       <p className='FavoritesPage__text'>Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ad minim </p>
 
-      <RecipesList recipes={recipes}/>
+      <div className="FavoritesPage__content">
+        <RecipesList recipes={recipes}/>
+      </div>
     </section>
   );
 };

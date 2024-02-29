@@ -1,17 +1,16 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import RecipesList from '../../components/Lists/RecipesList/RecipesList';
 import { useAppSelector } from '../../store/hooks';
 import './HomePage.scss';
 import { categories } from '../../helpers/staticData';
 import CategoriesList from '../../components/Lists/CategoriesList/CategoriesList';
 import LinkBtn from '../../components/elements/LinkBtn/LinkBtn';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Stack } from '@mui/material';
-import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import ReviewCard from '../../components/Cards/ReviewCard/ReviewCard';
+import { CategorySlider, Slide } from '../../components/CategorySlider/CategorySlider';
+import Subscribe from '../../components/Subscribe/Subscribe';
 
 const visibleCategories = [...categories].slice(0, 7);
 
@@ -22,17 +21,6 @@ const HomePage: React.FC = () => {
       return a.rating - b.rating;
     })
     .slice(0, 9);
-
-  const [swiperRef, setSwiperRef] = useState<SwiperClass>();
-
-  const handlePrevious = useCallback(() => {
-    swiperRef?.slidePrev();
-  }, [swiperRef]);
-
-  const handleNext = useCallback(() => {
-    swiperRef?.slideNext();
-  }, [swiperRef]);
-  // const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section className="HomePage">
@@ -90,51 +78,19 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <section className="HomePage__section HomePage__section--review">
-        <div className="HomePage__title-zone">
-          <h2 className="HomePage__title">What they say about us</h2>
-
-          <Stack direction="row" spacing={3}>
-            <ArrowBackIosIcon
-              onClick={handlePrevious}
-              // disable={activeIndex === 0}
-            />
-            <ArrowForwardIosIcon
-              onClick={handleNext}
-              // disable={handleDisabled()}
-            />
-          </Stack>
-        </div>
-        <Swiper
-          onSwiper={setSwiperRef}
-          // onRealIndexChange={(el: SwiperClass) =>
-          //   setActiveIndex(el.activeIndex)
-          // }
-          className="product-slider__slides"
-          spaceBetween={24}
-          scrollbar={{ draggable: true }}
-          breakpoints={{
-            370: {
-              slidesPerView: 3,
-            },
-            // 520: {
-            //   slidesPerView: 3,
-            // },
-            // 900: {
-            //   slidesPerView: 4,
-            // },
-          }}
-        >
-          <SwiperSlide>
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-          </SwiperSlide>
-        </Swiper>
+      <section className="HomePage__section">
+        <Subscribe />
       </section>
+
+      <section className="HomePage__section HomePage__section--review">
+        <CategorySlider>
+          <Slide><ReviewCard /></Slide>
+          <Slide><ReviewCard /></Slide>
+          <Slide><ReviewCard /></Slide>
+        </CategorySlider>
+      </section>
+
+      <section className="HomePage__section"></section>
     </section>
   );
 };

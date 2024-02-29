@@ -1,5 +1,6 @@
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
+import './BackBtn.scss';
 
 const BackBtn = () => {
   const navigate = useNavigate();

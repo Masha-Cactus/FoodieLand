@@ -1,0 +1,52 @@
+@import './../../../style/mixins';
+
+.SubscribeInput {
+  display: flex;
+  padding: 10px 24px;
+  background-color: $white;
+  align-items: center;
+  justify-content: space-between;
+  height: 74px;
+  width: 620px;
+
+  &--gray {
+    background-color: $lightGrey;
+  }
+
+  &:has(.SubscribeInput__input:hover) {
+    box-shadow: rgba(51, 51, 51, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  }
+
+  &:has(.SubscribeInput__input:focus) {
+    box-shadow: rgba(51, 51, 51, 0.25) 0px 5px 15px;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+
+    &--gray {
+      background-color: $lightGrey;
+    }
+
+    // &:focus .SubscribeInput {
+    //   // border: 1px solid $iconKeeperColor;
+    //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    // }
+  }
+
+  &__btn {
+    outline: none;
+    border: none;
+    background-color: $dark;
+    width: 134px;
+    height: 100%;
+    color: $white;
+    cursor: pointer;
+
+    @include hover(transform, scale(1.1));
+  }
+}

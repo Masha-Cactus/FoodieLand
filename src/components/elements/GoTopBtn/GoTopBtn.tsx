@@ -1,4 +1,5 @@
 import './GoTopBtn.scss';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 type Props = {};
 
@@ -9,7 +10,9 @@ const GoTopBtn: React.FC<Props> = ({}) => {
 
   return (
     <div className='GoTopBtn' onClick={goTop}>
-      <div className="GoTopBtn__icon" />
+      <ArrowUpwardIcon />
+      {/* <div className="GoTopBtn__icon" /> */}
+      {/* <p>Go Top</p> */}
     </div>
   );
 };

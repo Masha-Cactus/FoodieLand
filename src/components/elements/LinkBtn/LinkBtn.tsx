@@ -11,7 +11,11 @@ const LinkBtn: React.FC<Props> = ({ path, text }) => {
     <button
       className='LinkBtn'
     >
-      <NavLink to={path} className='LinkBtn__link'>{text}</NavLink>
+      <NavLink to={path}
+        className='LinkBtn__link'
+        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+      >{text}
+      </NavLink>
     </button>
   );
 };

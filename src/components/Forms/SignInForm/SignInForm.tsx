@@ -24,14 +24,16 @@ const useStyles = makeStyles({
 });
 
 const SignInForm = () => {
-  const [userName, setUserName] = useState('');
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   // const [success, setSuccess] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
-  const isFormFilled = !!userName.length
+  const isFormFilled = !!name.length
+  && !!lastname.length
   && !!email.length
   && !!password.length;
 
@@ -49,7 +51,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [userName, email, password, errMsg]);
+  }, [name, lastname, email, password, errMsg]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -68,17 +70,32 @@ const SignInForm = () => {
       >
 
         <CssFormContol required>
-          <InputLabel variant='outlined'>UserName</InputLabel>
+          <InputLabel variant='outlined'>Name</InputLabel>
           <CssInputField
-            id="userName"
-            aria-describedby="userName"
-            onChange={e => setUserName(e.target.value)}
+            id="name"
+            aria-describedby="name"
+            onChange={e => setName(e.target.value)}
             type="text"
-            label="UserName"
-            placeholder="Enter your UserName"
+            label="Name"
+            placeholder="Enter your Name"
           />
-          <FormHelperText id="userName">
-            Some important text about userName
+          <FormHelperText id="name">
+            Some important text about Name
+          </FormHelperText>
+        </CssFormContol>
+
+        <CssFormContol required>
+          <InputLabel variant='outlined'>Lastname</InputLabel>
+          <CssInputField
+            id="lastname"
+            aria-describedby="lastname"
+            onChange={e => setLastname(e.target.value)}
+            type="text"
+            label="Lastname"
+            placeholder="Enter your Lastname"
+          />
+          <FormHelperText id="lastname">
+            Some important text about Lastname
           </FormHelperText>
         </CssFormContol>
 

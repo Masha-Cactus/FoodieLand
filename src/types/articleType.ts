@@ -1,11 +1,12 @@
-export interface BlogType {
+export interface ArticleType {
   title: string;
   description: string;
   date: string;
   author: string;
+  imgUrl: string;
 }
 
-export interface ArticleType {
+export interface ArticleDetaiiledType {
   title: string;
   description: string;
   mainText: string;

@@ -1,0 +1,17 @@
+@import './../../style/extends';
+
+.Subscribe {
+  background-color: $lightGrey;
+  padding: 80px 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+
+  &__title {
+    @extend %h2;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+}

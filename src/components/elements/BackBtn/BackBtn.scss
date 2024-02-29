@@ -1,7 +1,14 @@
+@import './../../../style/mixins';
+
 .BackBtn {
   border: none;
   outline: none;
   cursor: pointer;
   display: flex;
+  align-items: center;
   gap: 10px;
+  background-color: $white;
+  margin-top: 40px;
+
+  @include hover(transform, scale($scaleSize));
 }

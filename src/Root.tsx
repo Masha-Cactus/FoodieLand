@@ -10,6 +10,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import CreatePage from './pages/CreatePage/CreatePage';
 import ContactsPage from './pages/ContactsPage/ContactsPage';
 import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 export const Root = (): JSX.Element => (
   <Router>
@@ -31,6 +32,7 @@ export const Root = (): JSX.Element => (
         <Route path="create" element={<CreatePage />} />
         <Route path="contacts" element={<ContactsPage />} />
         <Route path="info" element={<AboutUsPage />} />
+        <Route path="profile" element={<ProfilePage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>

@@ -14,7 +14,7 @@ const ReviewCard: React.FC<Props> = ({}) => {
         </div>
       </div>
 
-      <div className="ReviewCard__text">
+      <div className="ReviewCard__text ReviewCard__text--margin">
         The best service! Thanks to this service, I found the perfect co-working
         space
       </div>

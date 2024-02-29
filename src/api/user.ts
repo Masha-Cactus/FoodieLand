@@ -14,10 +14,10 @@ export const loginUser = (data: Omit<UserType, 'userId'>) => {
 };
 
 export const updateUser = ({
-  userName, email, pwd, userId,
+  name, lastname, email, pwd, userId,
 }: UserType) => {
   return client.put<UserType>(`/users/${userId}`, {
-    userName, email, pwd, userId, // is UserId need to be here?
+    name, lastname, email, pwd, userId, // is UserId need to be here?
   });
 };
 

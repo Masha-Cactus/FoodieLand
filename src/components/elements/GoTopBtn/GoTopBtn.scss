@@ -1,16 +1,18 @@
+@import './../../../style/mixins';
 @import './../../../style/extends';
 
 .GoTopBtn {
-  height: 25px;
-  width: 25px;
+  position: absolute;
+  left: 95%;
+  top: 10%;
+  height: 30px;
+  width: 30px;
   border-radius: 100px;
-  border: 1px solid $dark;
-  &__icon {
-    height: 16px;
-    width: 16px;
-    color: $white;
-    background-image: url(./../../../assets/icons/up.svg);
+  border: 1px solid $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 
-    @extend %icon;
-  }
+  @include hover(transform, scale($scaleSize));
 }

@@ -1,7 +1,8 @@
 import { RecipeType } from './recipeType';
 
 export interface UserType {
-  userName: string;
+  name: string;
+  lastname: string;
   email: string;
   pwd: string;
   userId: number;

@@ -3,6 +3,9 @@ import { withStyles } from '@mui/styles';
 
 export const CssFormContol = withStyles({
   root: {
+    '&.MuiFormControl-root': {
+      width: 'fit-content',
+    },
     '& label': {
       color: '#C4C4C4',
       '&.Mui-focused': { color: '#212021' },

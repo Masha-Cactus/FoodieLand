@@ -3,6 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavList.scss';
 import { capitalize } from '@mui/material';
+import FadeMenu from '../../elements/FadeMenu/FadeMenu';
 
 type Props = {
   links: string[];
@@ -32,6 +33,7 @@ const NavBar: React.FC<Props> = ({ links, place }) => {
     <ul className={classNames('NavList', {
       'NavList--footer' : place,
     })}>
+      <FadeMenu />
       {links.map(link => (
         <NavLink
           key={link}
