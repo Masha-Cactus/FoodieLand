@@ -4,6 +4,7 @@ import { RecipeType } from '../../../types/recipeType';
 import './RecipeCard.scss';
 import TimeIcon from '../../elements/TimeIcon/TimeIcon';
 import MealTypeIcon from '../../elements/MealTypeIcon/MealTypeIcon';
+import { Link } from 'react-router-dom';
 
 type Props = {
   recipe: RecipeType;
@@ -11,15 +12,18 @@ type Props = {
 
 const RecipeCard: React.FC<Props> = ({ recipe }) => {
   const {
+    recipeId,
     title,
     cookingTimeInMinutes,
     category,
     imageUrl,
-    // rating,
   } = recipe;
 
   return (
-    <article className="RecipeCard">
+    <Link
+      to={`/recipes/${recipeId}`}
+      className="RecipeCard"
+    >
       <img
         src={imageUrl}
         alt={`${title} image`}
@@ -31,7 +35,7 @@ const RecipeCard: React.FC<Props> = ({ recipe }) => {
         <MealTypeIcon type={category[0]} />
         <Rating />
       </div>
-    </article>
+    </Link>
   );
 };
 

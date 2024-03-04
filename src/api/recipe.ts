@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-len */
 import { client } from './axiosClient';
 import {
   RecipeDetailType,
@@ -8,21 +10,23 @@ import {
 
 export const getRecipes = () => {
   // return client.get<RecipeType[]>('/recipes');
-  return client.get<RecipeType[]>('/recipes.json');
+  return client.get<RecipeType[]>(
+    'https://masha-cactus.github.io/recipes.json');
 };
 
 export const getRecipeById = (recipeId: number | null) => {
-  return client.get<RecipeDetailType>(`/recipes/${recipeId}`);
+  // return client.get<RecipeDetailType>(`/recipes/${recipeId}`);
+  return client.get<RecipeDetailType>('https://masha-cactus.github.io/recipeById.json');
 };
 
-export const createRecipe = (data: Omit<RecipeType, 'recipeId'>) => {
-  return client.post<RecipeType>('/recipes', data);
+export const createRecipe = (data: Omit<RecipeDetailType, 'recipeId'>) => {
+  return client.post<RecipeDetailType>('/recipes', data);
 };
 
 export const deleteRecipe = (recipeId: number) => {
   return client.delete(`/recipes/${recipeId}`);
 };
 
-export const updateRecipe = (data: RecipeType) => {
-  return client.put<RecipeType>(`/users/${data.recipeId}`, data);
+export const updateRecipe = (data: RecipeDetailType) => {
+  return client.put<RecipeDetailType>(`/users/${data.recipeId}`, data);
 };

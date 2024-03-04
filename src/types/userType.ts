@@ -4,8 +4,10 @@ export interface UserType {
   name: string;
   lastname: string;
   email: string;
-  pwd: string;
   userId: number;
+  country: string;
+  city: string;
+  image: string;
 }
 
 export interface UserInfoType {

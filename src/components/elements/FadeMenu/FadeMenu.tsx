@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 import { CssLinkBtn } from '../../MUI components/CssLinkBtn';
 import { Link } from 'react-router-dom';
 
-export default function FadeMenu() {
+export default function FadeMenu({}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

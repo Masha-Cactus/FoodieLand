@@ -1,0 +1,79 @@
+@import './../../style/extends';
+
+.SignModal {
+  &__box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding-inline: 40px;
+  }
+
+  &__top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 56px;
+  }
+
+  &__title {
+    align-self: flex-start;
+
+    @extend %h3;
+  }
+
+  &__text {
+    font-size: 18px;
+    color: $grey;
+
+    &--start {
+      align-self: flex-start;
+    }
+
+    &--dark {
+      color: #000;
+      cursor: pointer;
+    }
+
+    &--bot {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__mainText {
+    @extend %body-text;
+
+    line-height: 22px;
+  }
+
+  &__icons {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  &__icon {
+    height: 35px;
+    width: 35px;
+    @extend %icon;
+
+    &--facebook {
+      background-image: url('./../../assets/icons/facebook.svg');
+    }
+
+    &--apple {
+      background-image: url('./../../assets/icons/apple.svg');
+    }
+
+    &--gmail {
+      background-image: url('./../../assets/icons/gmail.svg');
+    }
+  }
+}

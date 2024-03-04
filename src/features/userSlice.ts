@@ -8,16 +8,8 @@ export interface UserState {
   country: string;
   city: string;
   image: string;
+  userId: number;
 }
-
-// const initialState: UserState = {
-//   name: '',
-//   lastname: '',
-//   email: '',
-//   country: '',
-//   city: '',
-//   image: '',
-// };
 
 const initialState: UserState = {
   name: 'Kevin',
@@ -26,6 +18,7 @@ const initialState: UserState = {
   country: 'Italy',
   city: 'Rome',
   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Outdoors-man-portrait_%28cropped%29.jpg/640px-Outdoors-man-portrait_%28cropped%29.jpg',
+  userId: 1,
 };
 
 export const userSlice = createSlice({

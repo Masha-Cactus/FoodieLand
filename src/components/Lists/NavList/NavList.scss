@@ -19,7 +19,7 @@
     padding: 6px 8px;
 
     @extend %link;
-    @include hover(color, #000);
+    @include hover(color, $accentColor);
 
     // &.is-active {
     //   &::after {
@@ -36,6 +36,7 @@
 
     &--footer {
       color: $white;
+      @include hover(color, $accentColor);
     }
   }
 }

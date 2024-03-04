@@ -1,26 +1,41 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RecipeType } from '../types/recipeType';
-import { getRecipes } from '../api/recipe';
+import { RecipeDetailType, RecipeType } from '../types/recipeType';
+import { getRecipeById, getRecipes } from '../api/recipe';
 
 export interface RecipesState {
   recipes: RecipeType[],
-  isLoading: boolean,
-  hasError: boolean,
+  recipesIsLoading: boolean,
+  recipesHasError: boolean,
+  selectedRecipe: RecipeDetailType | null,
+  selectedRecipeIsLoading: boolean,
+  selectedRecipeHasError: boolean,
 }
 
 const initialState: RecipesState = {
   recipes: [],
-  isLoading: false,
-  hasError: false,
+  recipesIsLoading: false,
+  recipesHasError: false,
+  selectedRecipe: null,
+  selectedRecipeIsLoading: false,
+  selectedRecipeHasError: false,
 };
 
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async () => {
-    const recipes = (await getRecipes());
+    const recipes = await getRecipes();
 
     return recipes;
+  },
+);
+
+export const fetchRecipeById = createAsyncThunk(
+  'recipes/fetchRecipeById',
+  async (recipeId: number | null) => {
+    const selectedRecipe = await getRecipeById(recipeId);
+
+    return selectedRecipe;
   },
 );
 
@@ -31,16 +46,28 @@ export const recipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipes.pending, (state) => {
-        state.isLoading = false;
-        state.hasError = false;
+        state.recipesIsLoading = false;
+        state.recipesHasError = false;
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
-        state.isLoading = true;
+        state.recipesIsLoading = true;
         state.recipes = action.payload;
       })
       .addCase(fetchRecipes.rejected, (state) => {
-        state.isLoading = true;
-        state.hasError = true;
+        state.recipesIsLoading = true;
+        state.recipesHasError = true;
+      })
+      .addCase(fetchRecipeById.pending, (state) => {
+        state.selectedRecipeIsLoading = false;
+        state.selectedRecipeHasError = false;
+      })
+      .addCase(fetchRecipeById.fulfilled, (state, action) => {
+        state.selectedRecipeIsLoading = true;
+        state.selectedRecipe = action.payload;
+      })
+      .addCase(fetchRecipeById.rejected, (state) => {
+        state.selectedRecipeIsLoading = true;
+        state.selectedRecipeHasError = true;
       });
   },
 });

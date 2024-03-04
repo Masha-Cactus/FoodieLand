@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import {
@@ -5,6 +6,7 @@ import {
   InputLabel,
   IconButton,
   InputAdornment,
+  capitalize,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { CssFormContol } from '../../MUI components/CssFormControl';
@@ -12,6 +14,11 @@ import { CssContainer } from '../../MUI components/CssContainer';
 import { CssSubmitButton } from '../../MUI components/CssSubmitBtn';
 import { CssInputField } from '../../MUI components/CssInputField';
 import classNames from 'classnames';
+import { defineType } from '../../../helpers/form/defineType';
+import { loginUser } from '../../../api/user';
+import { validateForm } from '../../../helpers/form/validateForm';
+import { PWD_REGEX } from '../../../helpers/staticData';
+import { z } from 'zod';
 
 const useStyles = makeStyles({
   form: {
@@ -23,21 +30,35 @@ const useStyles = makeStyles({
   },
 });
 
+interface FormData {
+  email: string;
+  pwd: string;
+}
+
 const SignInForm = () => {
-  const [name, setName] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-  // const [success, setSuccess] = useState('');
+  const [user, setUser] = useState<FormData>({
+    email: '',
+    pwd: '',
+  });
+
+  const [errors, setErrors] = useState<FormData>({
+    email: '',
+    pwd: '',
+  });
 
   const [showPassword, setShowPassword] = useState(false);
-  const isFormFilled = !!name.length
-  && !!lastname.length
-  && !!email.length
-  && !!password.length;
+  const [errMsg, setErrMsg] = useState('');
+
+  const isFormFilled = Object.values(user).every(field => !!field.length);
 
   const classes = useStyles();
+
+  const formSchema = z
+    .object({
+      email: z.coerce.string().trim().email(),
+      pwd: z.string().trim().regex(PWD_REGEX),
+    })
+    .required();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -49,15 +70,51 @@ const SignInForm = () => {
     event.preventDefault();
   };
 
-  useEffect(() => {
-    setErrMsg('');
-  }, [name, lastname, email, password, errMsg]);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setUser(prevUser => ({ ...prevUser, [name]: value }));
+  };
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
+
+    try {
+      const result = await validateForm<FormData>(user, formSchema);
+
+      if (result.isValid) {
+        const response = await loginUser(user);
+
+        console.log('response', response);
+      } else {
+        console.log(result.formErrors);
+        Object.entries(result.formErrors).forEach(([key, msg]) =>
+          setErrors(c => ({ ...c, [key]: msg })),
+        );
+        console.log('Form Error:', result.formErrors);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrMsg(`Error creating user: ${err.message}`);
+      } else {
+        setErrMsg('Unknown error occurred');
+      }
+
+      console.log('errMsg', errMsg);
+    }
   };
+
+  useEffect(() => {
+    setErrors(curr => ({ ...curr, email: '' }));
+  }, [user.email]);
+
+  useEffect(() => {
+    setErrors(curr => ({ ...curr, pwd: '' }));
+  }, [user.pwd]);
 
   return (
     <CssContainer>
@@ -68,87 +125,50 @@ const SignInForm = () => {
         onSubmit={handleSubmit}
         className={classes.form}
       >
-
-        <CssFormContol required>
-          <InputLabel variant='outlined'>Name</InputLabel>
-          <CssInputField
-            id="name"
-            aria-describedby="name"
-            onChange={e => setName(e.target.value)}
-            type="text"
-            label="Name"
-            placeholder="Enter your Name"
-          />
-          <FormHelperText id="name">
-            Some important text about Name
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required>
-          <InputLabel variant='outlined'>Lastname</InputLabel>
-          <CssInputField
-            id="lastname"
-            aria-describedby="lastname"
-            onChange={e => setLastname(e.target.value)}
-            type="text"
-            label="Lastname"
-            placeholder="Enter your Lastname"
-          />
-          <FormHelperText id="lastname">
-            Some important text about Lastname
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <CssInputField
-            id="email"
-            aria-describedby="email"
-            onChange={e => setEmail(e.target.value)}
-            type="email"
-            label="Email"
-            placeholder="example@gmail.com"
-          />
-          <FormHelperText id="email">
-            Some important text about email
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <CssInputField
-            onChange={e => setPassword( e.target.value)}
-            id="password"
-            label="Password"
-            type={showPassword ? 'text' : 'password'}
-            aria-describedby="password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => handleClickShowPassword()}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {!showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            placeholder="********"
-          />
-          <FormHelperText id="password-text">
-            Some important text about password
-          </FormHelperText>
-        </CssFormContol>
+        {Object.keys(user).map(key => (
+          <CssFormContol
+            key={key}
+            required
+            error={!!errors[key as keyof FormData].length}
+          >
+            <InputLabel htmlFor="name">{capitalize(key)}</InputLabel>
+            <CssInputField
+              name={key}
+              id={key}
+              aria-describedby={key}
+              onChange={handleInputChange}
+              type={defineType(key, showPassword)}
+              placeholder={`Enter your ${key}`}
+              label={capitalize(key)}
+              sx={{ height: 45, width: 425 }}
+              endAdornment={
+                key === 'pwd' && (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {!showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }
+            />
+            <FormHelperText id={key}>
+              {`Some important text about ${key}`}
+            </FormHelperText>
+          </CssFormContol>
+        ))}
 
         <CssSubmitButton
           type="submit"
           variant="contained"
-          disabled={isFormFilled}
+          disabled={!isFormFilled}
           className={classNames({
-            'filled': isFormFilled,
-          },
-          )}
+            filled: isFormFilled,
+          })}
         >
           Sign In
         </CssSubmitButton>
@@ -158,4 +178,3 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-

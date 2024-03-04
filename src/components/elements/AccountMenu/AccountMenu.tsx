@@ -24,8 +24,8 @@ export default function AccountMenu() {
   const navigate = useNavigate();
 
   const handleIconClick = (event: React.MouseEvent<HTMLElement>) => {
-    if (true) {
-    // if (auth) {
+    // if (true) {
+    if (auth) {
       setAnchorEl(event.currentTarget);
     } else {
       dispatch(openSignIn());
@@ -42,10 +42,10 @@ export default function AccountMenu() {
         <Tooltip title={auth ? 'Account settings' : 'Sign In'}>
           <IconButton
             onClick={handleIconClick}
-            onMouseEnter={handleIconClick}
-            onBlur={handleClose}
+            // onMouseEnter={handleIconClick}
+            // onBlur={handleClose}
             // onMouseOut={handleClose}
-            onMouseLeave={handleClose}
+            // onMouseLeave={handleClose}
             size="small"
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}

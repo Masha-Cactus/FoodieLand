@@ -2,8 +2,9 @@
 
 .ProfilePage {
   padding-block: 80px;
-  
+
   &__top {
+    grid-column: span 2;
     display: flex;
     gap: 40px;
     align-items: center;

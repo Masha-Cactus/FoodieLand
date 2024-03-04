@@ -6,6 +6,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  capitalize,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
@@ -14,10 +15,18 @@ import { CssContainer } from '../../MUI components/CssContainer';
 import { CssSubmitButton } from '../../MUI components/CssSubmitBtn';
 import { CssInputField } from '../../MUI components/CssInputField';
 import classNames from 'classnames';
+import { z } from 'zod';
+import { validateForm } from '../../../helpers/form/validateForm';
+import { PWD_REGEX, USERNAME_REGEX } from '../../../helpers/staticData';
+import { defineType } from '../../../helpers/form/defineType';
 
-const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
-const EMAIL_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]){7,24}/;
+interface FormData {
+  name: string;
+  lastname: string;
+  email: string;
+  pwd: string;
+  matchPwd: string;
+}
 
 const useStyles = makeStyles({
   form: {
@@ -31,132 +40,106 @@ const useStyles = makeStyles({
 
 const SignUpForm = () => {
   const classes = useStyles();
-  // const [user, setUser] = useState({
-  //   name:
-  //   lastname:
-  // })
-  const [userName, setUserName] = useState({
+  const [user, setUser] = useState<FormData>({
     name: '',
-    validName: false,
-    nameError: false,
-  });
-  const [userLastname, setUserLastname] = useState({
     lastname: '',
-    validLastname: false,
-    lastnameError: false,
-  });
-  const [userEmail, setUserEmail] = useState({
     email: '',
-    validEmail: false,
-    emailError: false,
-  });
-  const [password, setPassword] = useState({
     pwd: '',
-    validPwd: false,
-    pwdError: false,
-  });
-  const [matchPassword, setMatchPassword] = useState({
     matchPwd: '',
-    validMatchPwd: false,
-    matchPwdError: false,
   });
 
-  const { name, validName, nameError } = userName;
-  const { lastname, validLastname, lastnameError } = userLastname;
-  const { email, validEmail, emailError } = userEmail;
-  const { pwd, validPwd, pwdError } = password;
-  const { matchPwd, validMatchPwd, matchPwdError } = matchPassword;
-
-  const isFormFilled = !!name.length
-  && !!lastname.length
-  && !!email.length
-  && !!pwd.length
-  && !!matchPwd.length;
-
-  const isFormValid = validName
-  && validLastname
-  && validEmail
-  && validPwd
-  && validMatchPwd;
+  const [errors, setErrors] = useState<FormData>({
+    name: '',
+    lastname: '',
+    email: '',
+    pwd: '',
+    matchPwd: '',
+  });
 
   const [errMsg, setErrMsg] = useState('');
 
-  useEffect(() => {
-    setUserName(curr => ({ ...curr, userNameError: false }));
-  }, [userName]);
+  const formSchema = z
+    .object({
+      name: z.string().trim().regex(USERNAME_REGEX),
+      lastname: z.string().trim().regex(USERNAME_REGEX),
+      email: z.coerce.string().trim().email(),
+      pwd: z.string().trim().regex(PWD_REGEX),
+      matchPwd: z.string().trim().regex(PWD_REGEX),
+    })
+    .required();
+
+  const isFormFilled = Object.values(user).every(field => !!field.length);
 
   useEffect(() => {
-    setUserLastname(curr => ({ ...curr, lastnameError: false }));
-  }, [lastname]);
+    setErrors(curr => ({ ...curr, name: '' }));
+  }, [user.name]);
 
   useEffect(() => {
-    setUserEmail(curr => ({ ...curr, emailError: false }));
-  }, [email]);
+    setErrors(curr => ({ ...curr, lastname: '' }));
+  }, [user.lastname]);
 
   useEffect(() => {
-    setPassword(curr => ({ ...curr, pwdError: false }));
-  }, [pwd]);
+    setErrors(curr => ({ ...curr, email: '' }));
+  }, [user.email]);
 
   useEffect(() => {
-    setMatchPassword(curr => ({ ...curr, matchPwdError: false }));
-  }, [matchPwd]);
+    setErrors(curr => ({ ...curr, pwd: '' }));
+  }, [user.pwd]);
 
-  const validate = () => {
-    setUserName(curr => ({
-      ...curr,
-      validName: USERNAME_REGEX.test(name),
-      nameError: !USERNAME_REGEX.test(name),
-    }));
-
-    setUserLastname(curr => ({
-      ...curr,
-      validUserLastname: USERNAME_REGEX.test(lastname),
-      userLastnameError: !USERNAME_REGEX.test(lastname),
-    }));
-
-    setUserEmail(curr => ({
-      ...curr,
-      validEmail: EMAIL_REGEX.test(email),
-      emailError: !EMAIL_REGEX.test(email),
-    }));
-
-    setPassword(curr => ({
-      ...curr,
-      validPwd: PWD_REGEX.test(pwd),
-      pwdError: !PWD_REGEX.test(pwd),
-    }));
-
-    setMatchPassword(curr => ({
-      ...curr,
-      validMatchPwd: pwd === matchPwd,
-      matchPwdError: pwd !== matchPwd,
-    }));
-  };
+  useEffect(() => {
+    setErrors(curr => ({ ...curr, matchPwd: '' }));
+  }, [user.matchPwd]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
-    validate();
 
-    if (isFormValid) {
-      try {
-        const response = await createUser({ name, lastname, email, pwd });
+    try {
+      const result = await validateForm<FormData>(user, formSchema);
+
+      if (result.isValid) {
+        const { name, lastname, email, pwd } = user;
+        const response = await createUser({
+          name,
+          lastname,
+          email,
+          pwd,
+        });
 
         console.log('response', response);
-      } catch (error) {
-        if (error instanceof Error) {
-          setErrMsg(`Error creating user: ${error.message}`);
-        } else {
-          setErrMsg('Unknown error occurred');
-        }
-
-        console.log('errMsg', errMsg);
+      } else {
+        console.log(result.formErrors);
+        Object.entries(result.formErrors).forEach(([key, msg]) =>
+          setErrors(c => ({ ...c, [key]: msg })),
+        );
+        console.log('Form Error:', result.formErrors);
       }
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrMsg(`Error creating user: ${err.message}`);
+      } else {
+        setErrMsg('Unknown error occurred');
+      }
+
+      console.log('errMsg', errMsg);
     }
   };
 
-  const [showPassword, setShowPassword] = useState({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setUser(prevUser => ({ ...prevUser, [name]: value }));
+  };
+
+  type ShowPwdType = {
+    showPwd: boolean,
+    showMatchPwd: boolean,
+  };
+
+  const [showPassword, setShowPassword] = useState<ShowPwdType>({
     showPwd: false,
     showMatchPwd: false,
   });
@@ -165,8 +148,10 @@ const SignUpForm = () => {
     if (field === 'pwd') {
       setShowPassword(cur => ({ ...cur, showPwd: !showPassword.showPwd }));
     } else {
-      setShowPassword(cur => (
-        { ...cur, showMatchPwd: !showPassword.showMatchPwd }));
+      setShowPassword(cur => ({
+        ...cur,
+        showMatchPwd: !showPassword.showMatchPwd,
+      }));
     }
   };
 
@@ -174,6 +159,41 @@ const SignUpForm = () => {
     event: React.MouseEvent<HTMLButtonElement>,
   ): void => {
     event.preventDefault();
+  };
+
+  const isVisible = (key: string) => {
+    if (key === 'pwd' || key === 'matchPwd') {
+      return (
+        <InputAdornment position="end">
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={() => {
+              if (key === 'matchPwd') {
+                handleClickShowPassword('match');
+              } else {
+                handleClickShowPassword('pwd');
+              }
+            }}
+            onMouseDown={handleMouseDownPassword}
+            edge="end"
+          >
+            {key === 'matchPwd' ? (
+              !showPassword.showMatchPwd ? (
+                <VisibilityOff />
+              ) : (
+                <Visibility />
+              )
+            ) : !showPassword.showPwd ? (
+              <VisibilityOff />
+            ) : (
+              <Visibility />
+            )}
+          </IconButton>
+        </InputAdornment>
+      );
+    }
+
+    return;
   };
 
   return (
@@ -185,16 +205,37 @@ const SignUpForm = () => {
         onSubmit={handleSubmit}
         className={classes.form}
       >
-        <CssFormContol
-          required
-          error={nameError}
-        >
+        {Object.keys(user).map(key => (
+          <CssFormContol
+            key={key}
+            required
+            error={!!errors[key as keyof FormData].length}
+          >
+            <InputLabel htmlFor="name">{capitalize(key)}</InputLabel>
+            <CssInputField
+              name={key}
+              id={key}
+              aria-describedby={key}
+              onChange={handleInputChange}
+              type={defineType(key, showPassword[`show${capitalize(key)}` as keyof ShowPwdType])}
+              placeholder={`Enter your ${key}`}
+              label={capitalize(key)}
+              sx={{ height: 45, width: 425 }}
+              endAdornment={isVisible(key)}
+            />
+            <FormHelperText id={key}>
+              {`Some important text about ${key}`}
+            </FormHelperText>
+          </CssFormContol>
+        ))}
+
+        {/* <CssFormContol required error={!!errors.name.length}>
           <InputLabel htmlFor="name">Name</InputLabel>
           <CssInputField
             id="name"
+            name="name"
             aria-describedby="name"
-            onChange={e => setUserName(cur => (
-              { ...cur, name: e.target.value }))}
+            onChange={handleInputChange}
             type="text"
             placeholder="Enter your Name"
             label="UserName"
@@ -204,16 +245,12 @@ const SignUpForm = () => {
           </FormHelperText>
         </CssFormContol>
 
-        <CssFormContol
-          required
-          error={lastnameError}
-        >
+        <CssFormContol required error={!!errors.lastname.length}>
           <InputLabel htmlFor="userName">Lastname</InputLabel>
           <CssInputField
             id="lastname"
             aria-describedby="lastname"
-            onChange={e => setUserLastname(cur => (
-              { ...cur, lastname: e.target.value }))}
+            onChange={handleInputChange}
             type="text"
             placeholder="Enter your Lastname"
             label="Lastname"
@@ -223,16 +260,12 @@ const SignUpForm = () => {
           </FormHelperText>
         </CssFormContol>
 
-        <CssFormContol
-          required
-          error={emailError}
-        >
+        <CssFormContol required error={!!errors.email.length}>
           <InputLabel htmlFor="email">Email</InputLabel>
           <CssInputField
             id="email"
             aria-describedby="email"
-            onChange={e => setUserEmail(cur => (
-              { ...cur, email: e.target.value }))}
+            onChange={handleInputChange}
             type="email"
             placeholder="example@gmail.com"
             label="Email"
@@ -242,15 +275,12 @@ const SignUpForm = () => {
           </FormHelperText>
         </CssFormContol>
 
-        <CssFormContol
-          required
-          error={pwdError}
-        >
+        <CssFormContol required error={!!errors.pwd.length}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <CssInputField
             id="password"
             aria-describedby="password-text"
-            onChange={e => setPassword(c => ({ ...c, pwd: e.target.value }))}
+            onChange={handleInputChange}
             type={showPassword.showPwd ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -269,18 +299,14 @@ const SignUpForm = () => {
           <FormHelperText id="password-text">
             Some important text
           </FormHelperText>
-        </CssFormContol>
+        </CssFormContol> */}
 
-        <CssFormContol
-          required
-          error={matchPwdError}
-        >
+        {/* <CssFormContol required error={!!errors.matchPwd.length}>
           <InputLabel htmlFor="matchPassword">Confirm Password</InputLabel>
           <CssInputField
             id="matchPassword"
             aria-describedby="matchPassword-text"
-            onChange={e => setMatchPassword(curr => (
-              { ...curr, matchPwd: e.target.value }))}
+            onChange={handleInputChange}
             type={showPassword.showMatchPwd ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -290,8 +316,11 @@ const SignUpForm = () => {
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {!showPassword.showMatchPwd
-                    ? <VisibilityOff /> : <Visibility />}
+                  {!showPassword.showMatchPwd ? (
+                    <VisibilityOff />
+                  ) : (
+                    <Visibility />
+                  )}
                 </IconButton>
               </InputAdornment>
             }
@@ -300,16 +329,15 @@ const SignUpForm = () => {
           <FormHelperText id="password-text">
             Some important text
           </FormHelperText>
-        </CssFormContol>
+        </CssFormContol> */}
 
         <CssSubmitButton
           type="submit"
           variant="contained"
-          disabled={isFormFilled}
+          disabled={!isFormFilled}
           className={classNames({
-            'filled': isFormFilled,
-          },
-          )}
+            filled: isFormFilled,
+          })}
         >
           Submit
         </CssSubmitButton>

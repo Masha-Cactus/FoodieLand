@@ -14,14 +14,14 @@ export const CssLinkBtn = withStyles({
       textTransform: 'none',
       '&:hover': {
         backgroundColor: 'inherit',
-        color: '#000',
+        color: '#FF7426',
       },
     },
-    '&.MuiButtonBase-root.filled': {
-      backgroundColor: '#717171',
-      '&:hover': {
-        backgroundColor: '#717171',
-      },
-    },
+    // '&.MuiButtonBase-root.filled': {
+    //   backgroundColor: '#717171',
+    //   '&:hover': {
+    //     backgroundColor: '#FF7426',
+    //   },
+    // },
   },
 })(Button);

@@ -5,21 +5,15 @@ import './NavList.scss';
 import { capitalize } from '@mui/material';
 import FadeMenu from '../../elements/FadeMenu/FadeMenu';
 
-type Props = {
-  links: string[];
-  place?: string;
+type Link = {
+  name: string;
+  path: string;
+  dropdown: boolean;
 };
 
-const getPath = (link: string) => {
-  if (link === 'home') {
-    return './';
-  }
-
-  if (link === 'about us') {
-    return '/info';
-  }
-
-  return link;
+type Props = {
+  links: Link[];
+  place?: string;
 };
 
 const NavBar: React.FC<Props> = ({ links, place }) => {
@@ -30,22 +24,27 @@ const NavBar: React.FC<Props> = ({ links, place }) => {
     });
 
   return (
-    <ul className={classNames('NavList', {
-      'NavList--footer' : place,
-    })}>
-      <FadeMenu />
-      {links.map(link => (
-        <NavLink
-          key={link}
-          to={getPath(link)}
-          className={getLinkNavClass}
-          onClick={() =>
-            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-          }
-        >
-          {capitalize(link)}
-        </NavLink>
-      ))}
+    <ul
+      className={classNames('NavList', {
+        'NavList--footer': place,
+      })}
+    >
+      {links.map(link => {
+        return (link.dropdown && !place) ? (
+          <FadeMenu />
+        ) : (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            className={getLinkNavClass}
+            onClick={() =>
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+            }
+          >
+            {capitalize(link.name)}
+          </NavLink>
+        );
+      })}
     </ul>
   );
 };

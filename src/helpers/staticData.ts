@@ -1,5 +1,34 @@
 /* eslint-disable max-len */
-export const navBarLinks = ['home', 'recipes', 'blog', 'contacts', 'about us'];
+export const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}/;
+export const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]){7,24}/;
+
+export const navBarLinks = [
+  {
+    path: '/',
+    name: 'home',
+    dropdown: false,
+  },
+  {
+    path: '/recipes',
+    name: 'recipes',
+    dropdown: true,
+  },
+  {
+    path: '/blog',
+    name: 'blog',
+    dropdown: false,
+  },
+  {
+    path: '/contacts',
+    name: 'contacts',
+    dropdown: false,
+  },
+  {
+    path: '/info',
+    name: 'about us',
+    dropdown: false,
+  },
+];
 
 export const categories = [
   {

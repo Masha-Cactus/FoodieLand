@@ -15,7 +15,7 @@ export interface RecipeDetailType {
   steps: { description: string }[];
   summary: string;
   cuisines: string[];
-  nutrition: {
+  nutritions: {
     calories: number;
     totalFat: number;
     protein: number;
@@ -23,11 +23,11 @@ export interface RecipeDetailType {
     cholesterol: number;
   };
   diet: {
-    vegetarian: false,
-    vegan: false,
-    glutenFree: false,
-    dairyFree: false,
-    veryHealthy: true,
+    vegetarian: boolean,
+    vegan: boolean,
+    glutenFree: boolean,
+    dairyFree: boolean,
+    veryHealthy: boolean,
   };
 }
 
