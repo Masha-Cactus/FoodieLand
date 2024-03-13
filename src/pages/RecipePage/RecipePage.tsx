@@ -1,23 +1,21 @@
 /* eslint-disable max-len */
-import { useDispatch } from 'react-redux';
 import RecipeDetailCard from '../../components/Cards/RecipeDetailCard/RecipeDetailCard';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import './RecipePage.scss';
-import { fetchSelectedRecipe } from '../../features/selectedRecipeSlice';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchRecipeById } from '../../features/recipesSlice';
 
 type Props = {};
 
 const RecipePage: React.FC<Props> = ({}) => {
   const { selectedRecipe } = useAppSelector(state => state.recipes);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { recipeId } = useParams();
 
   useEffect(() => {
-    // dispatch(fetchSelectedRecipe((+recipeId) || null));
-    dispatch(fetchSelectedRecipe(3));
+    dispatch(fetchRecipeById(3));
   }, [dispatch, recipeId]);
 
   return (

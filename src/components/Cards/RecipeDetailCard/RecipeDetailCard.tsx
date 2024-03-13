@@ -1,4 +1,5 @@
 import { RecipeDetailType } from '../../../types/recipeType';
+import AddFavoriteBtn from '../../elements/AddFavoriteBtn/AddFavoriteBtn';
 import './RecipeDetailCard.scss';
 
 type Props = { recipe: RecipeDetailType };
@@ -6,9 +7,10 @@ type Props = { recipe: RecipeDetailType };
 const RecipeDetailCard: React.FC<Props> = ({ recipe }) => {
   return (
     <article className="RecipeDetailCard">
+      <AddFavoriteBtn recipe={recipe} />
       <h1 className="RecipeDetailCard__title">{recipe.title}</h1>
       <img
-        src={recipe.imageUrl}
+        src={recipe.image}
         alt="recipe image"
         className='RecipeDetailCard__image'
       />

@@ -31,7 +31,7 @@ const NavBar: React.FC<Props> = ({ links, place }) => {
     >
       {links.map(link => {
         return (link.dropdown && !place) ? (
-          <FadeMenu />
+          <FadeMenu key={link.name}/>
         ) : (
           <NavLink
             key={link.name}

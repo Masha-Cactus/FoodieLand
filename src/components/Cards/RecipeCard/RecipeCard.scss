@@ -7,15 +7,19 @@
   padding: 24px 24px 32px;
   width: 100%;
   background-color: $lightLightGrey;
+  color: $dark;
+
   &__image {
     width: 100%;
     object-fit: contain;
+    // margin-top: 24px;
   }
 
   &__name {
+    font-weight: 700;
     text-align: left;
-    margin-top: 24px;
-    height: 96px;
+    margin-top: 16px;
+    height: 64px;
 
     @extend %h5;
   }
@@ -24,5 +28,6 @@
     display: flex;
     gap: 24px;
     margin-top: 27px;
+    align-items: center;
   }
 }

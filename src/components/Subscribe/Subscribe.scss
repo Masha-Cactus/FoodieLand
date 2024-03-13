@@ -2,10 +2,11 @@
 
 .Subscribe {
   background-color: $lightGrey;
-  padding: 80px 320px;
+  padding: 80px 308px;
   display: flex;
   flex-direction: column;
   gap: 64px;
+  align-content: center;
 
   &__title {
     @extend %h2;

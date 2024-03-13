@@ -10,17 +10,19 @@ import {
 
 export const getRecipes = () => {
   // return client.get<RecipeType[]>('/recipes');
-  return client.get<RecipeType[]>(
-    'https://masha-cactus.github.io/recipes.json');
+  // return client.get<RecipeType[]>(
+  //   'https://masha-cactus.github.io/recipes.json');
+  return client.get<RecipeType[]>('/recipes.json');
 };
 
 export const getRecipeById = (recipeId: number | null) => {
   // return client.get<RecipeDetailType>(`/recipes/${recipeId}`);
-  return client.get<RecipeDetailType>('https://masha-cactus.github.io/recipeById.json');
+  // return client.get<RecipeDetailType>('https://masha-cactus.github.io/recipeById.json');
+  return client.get<RecipeDetailType>('/recipeById.json');
 };
 
 export const createRecipe = (data: Omit<RecipeDetailType, 'recipeId'>) => {
-  return client.post<RecipeDetailType>('/recipes', data);
+  return client.post<RecipeDetailType>('/recipeById', data);
 };
 
 export const deleteRecipe = (recipeId: number) => {

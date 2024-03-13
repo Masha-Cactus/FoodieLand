@@ -1,5 +1,17 @@
 @font-face {
-  font-family: Mont-Regular;
+  font-family: Helvetica-Neue-Regular;
+  font-weight: 400;
+  src: url(./../assets/fonts/HelveticaNeueLight.otf) format("opentype");
+};
+
+@font-face {
+  font-family: Helvetica-Neue-Semibold;
   font-weight: 500;
-  src: url(../../public/fonts/Mont-Regular.otf) format("opentype");
+  src: url(./../assets/fonts/helvetica-medium.otf) format("opentype");
+};
+
+@font-face {
+  font-family: Helvetica-Neue-Bold;
+  font-weight: 700;
+  src: url(./../assets/fonts/HelveticaNeueBold.otf) format("opentype");
 };

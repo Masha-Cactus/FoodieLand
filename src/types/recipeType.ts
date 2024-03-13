@@ -9,7 +9,7 @@ export interface RecipeDetailType {
   quantity: number;
   cookingTimeInMinutes: number;
   category: string[];
-  imageUrl: string;
+  image: string;
   rating: number;
   ingredients: Ingredient[];
   steps: { description: string }[];
@@ -36,6 +36,6 @@ export interface RecipeType {
   title: string;
   cookingTimeInMinutes: number;
   category: string[];
-  imageUrl: string;
+  image: string;
   rating: number;
 }

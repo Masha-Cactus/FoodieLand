@@ -1,11 +1,10 @@
 @import './style/mixins';
 @import './style/reset';
 @import './style/extends';
+@import './style/fonts';
 
 .App {
-  text-align: center;
-  font-family: Helvetica, sans-serif;
-  color: $dark;
+  @extend %main-style;
 
   &__main {
     @include inline-padding-control;

@@ -1,6 +1,15 @@
 @import './variables';
 
+%main-style {
+  font-family: Helvetica-Neue-Bold, $fallback-fonts;
+  font-weight: 700;
+  color: $dark;
+  text-align: center;
+  letter-spacing: $letter-spacing;
+}
+
 %h1 {
+  font-family: Helvetica-Neue-Semibold;
   font-weight: 500;
   font-size: 64px;
   line-height: 78.14px;
@@ -12,27 +21,25 @@
 }
 
   %h2 {
-    font-weight: 700;
     font-size: 48px;
     line-height: 58.61px;
     // letter-spacing: -4%;
   }
 
   %h3 {
-    font-weight: 700;
     font-size: 36px;
     line-height: 43.96px;
     // letter-spacing: -4%;
   }
 
   %h4 {
-    font-weight: 700;
     font-size: 32px;
     line-height: 39px;
     // letter-spacing: -4%;
   }
 
   %h5 {
+    font-family: Helvetica-Neue-Semibold;
     font-weight: 500;
     font-size: 24px;
     line-height: 29.3px;
@@ -40,13 +47,13 @@
   }
 
   %h6 {
-    font-weight: 700;
     font-size: 20px;
     line-height: 28px;
     // letter-spacing: -4%;
   }
 
   %body-text {
+    font-family: Helvetica-Neue-Regular;
     font-weight: 400;
     font-size: 16px;
     line-height: 28px;
@@ -56,6 +63,7 @@
   }
 
   %small-text {
+    font-family: Helvetica-Neue-Semibold;
     font-weight: 500;
     font-size: 14px;
     line-height: 19px;
@@ -63,6 +71,7 @@
   }
 
   %smallest-text {
+    font-family: Helvetica-Neue-Regular;
     font-weight: 400;
     font-size: 12px;
     line-height: 19px;
@@ -70,6 +79,7 @@
   }
 
   %link {
+    font-family: Helvetica-Neue-Semibold;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
