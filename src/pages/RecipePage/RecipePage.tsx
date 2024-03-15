@@ -15,7 +15,7 @@ const RecipePage: React.FC<Props> = ({}) => {
   const { recipeId } = useParams();
 
   useEffect(() => {
-    dispatch(fetchRecipeById(3));
+    dispatch(fetchRecipeById(+recipeId || null));
   }, [dispatch, recipeId]);
 
   return (

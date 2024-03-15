@@ -12,6 +12,7 @@ export const CssLinkBtn = withStyles({
       fontSize: 16,
       margin: 0,
       textTransform: 'none',
+      fontFamily: 'Helvetica-Neue-Semibold',
       '&:hover': {
         backgroundColor: 'inherit',
         color: '#FF7426',

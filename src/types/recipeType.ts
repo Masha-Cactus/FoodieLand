@@ -1,6 +1,17 @@
 type Ingredient = {
   name: string;
-  quantity: number;
+  measures: {
+    us: {
+      amount: number;
+      unitShort: string;
+      unitLong: string;
+    };
+    metric: {
+      amount: number;
+      unitShort: string;
+      unitLong: string;
+    }
+  }
 };
 
 export interface RecipeDetailType {
@@ -11,8 +22,14 @@ export interface RecipeDetailType {
   category: string[];
   image: string;
   rating: number;
+  servings: number;
   ingredients: Ingredient[];
-  steps: { description: string }[];
+  steps: {
+    number: number,
+    step: string,
+    ingredients: string[],
+    equipment: string[],
+  }[];
   summary: string;
   cuisines: string[];
   nutritions: {
@@ -38,4 +55,8 @@ export interface RecipeType {
   category: string[];
   image: string;
   rating: number;
+}
+
+export interface RecipesType {
+  content: RecipeType[];
 }

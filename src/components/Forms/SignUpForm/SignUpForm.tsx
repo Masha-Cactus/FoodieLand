@@ -19,6 +19,8 @@ import { z } from 'zod';
 import { validateForm } from '../../../helpers/form/validateForm';
 import { PWD_REGEX, USERNAME_REGEX } from '../../../helpers/staticData';
 import { defineType } from '../../../helpers/form/defineType';
+// import { useAppDispatch } from '../../../store/hooks';
+// import { loginSuccess } from '../../../features/authSlice';
 
 interface FormData {
   name: string;
@@ -40,6 +42,8 @@ const useStyles = makeStyles({
 
 const SignUpForm = () => {
   const classes = useStyles();
+  // const dispatch = useAppDispatch();
+
   const [user, setUser] = useState<FormData>({
     name: '',
     lastname: '',
@@ -100,14 +104,21 @@ const SignUpForm = () => {
 
       if (result.isValid) {
         const { name, lastname, email, pwd } = user;
-        const response = await createUser({
-          name,
-          lastname,
-          email,
-          pwd,
-        });
 
-        console.log('response', response);
+        try {
+          const response = await createUser({
+            name,
+            lastname,
+            email,
+            pwd,
+          });
+
+          // dispatch(loginSuccess(response));
+          console.log('response', response);
+        } catch (error) {
+          console.error(error);
+        }
+
       } else {
         console.log(result.formErrors);
         Object.entries(result.formErrors).forEach(([key, msg]) =>
@@ -228,108 +239,6 @@ const SignUpForm = () => {
             </FormHelperText>
           </CssFormContol>
         ))}
-
-        {/* <CssFormContol required error={!!errors.name.length}>
-          <InputLabel htmlFor="name">Name</InputLabel>
-          <CssInputField
-            id="name"
-            name="name"
-            aria-describedby="name"
-            onChange={handleInputChange}
-            type="text"
-            placeholder="Enter your Name"
-            label="UserName"
-          />
-          <FormHelperText id="userName">
-            Some important text about Name
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required error={!!errors.lastname.length}>
-          <InputLabel htmlFor="userName">Lastname</InputLabel>
-          <CssInputField
-            id="lastname"
-            aria-describedby="lastname"
-            onChange={handleInputChange}
-            type="text"
-            placeholder="Enter your Lastname"
-            label="Lastname"
-          />
-          <FormHelperText id="userName">
-            Some important text about Lastname
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required error={!!errors.email.length}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <CssInputField
-            id="email"
-            aria-describedby="email"
-            onChange={handleInputChange}
-            type="email"
-            placeholder="example@gmail.com"
-            label="Email"
-          />
-          <FormHelperText id="email">
-            Some important text about email
-          </FormHelperText>
-        </CssFormContol>
-
-        <CssFormContol required error={!!errors.pwd.length}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <CssInputField
-            id="password"
-            aria-describedby="password-text"
-            onChange={handleInputChange}
-            type={showPassword.showPwd ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => handleClickShowPassword('pwd')}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {!showPassword.showPwd ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-          <FormHelperText id="password-text">
-            Some important text
-          </FormHelperText>
-        </CssFormContol> */}
-
-        {/* <CssFormContol required error={!!errors.matchPwd.length}>
-          <InputLabel htmlFor="matchPassword">Confirm Password</InputLabel>
-          <CssInputField
-            id="matchPassword"
-            aria-describedby="matchPassword-text"
-            onChange={handleInputChange}
-            type={showPassword.showMatchPwd ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => handleClickShowPassword('match')}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {!showPassword.showMatchPwd ? (
-                    <VisibilityOff />
-                  ) : (
-                    <Visibility />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Confirm Password"
-          />
-          <FormHelperText id="password-text">
-            Some important text
-          </FormHelperText>
-        </CssFormContol> */}
 
         <CssSubmitButton
           type="submit"

@@ -15,14 +15,14 @@ export const navBarLinks = [
   },
   {
     path: '/blog',
-    name: 'blog',
+    name: 'news',
     dropdown: false,
   },
-  {
-    path: '/contacts',
-    name: 'contacts',
-    dropdown: false,
-  },
+  // {
+  //   path: '/contacts',
+  //   name: 'contacts',
+  //   dropdown: false,
+  // },
   {
     path: '/info',
     name: 'about us',

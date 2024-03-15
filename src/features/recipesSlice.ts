@@ -24,7 +24,8 @@ const initialState: RecipesState = {
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async () => {
-    const recipes = await getRecipes();
+    const response = await getRecipes();
+    const recipes = response.content;
 
     return recipes;
   },

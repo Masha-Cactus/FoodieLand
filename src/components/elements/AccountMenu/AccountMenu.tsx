@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
-// import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { openSignIn, openSignUp } from '../../../features/modalsSlice';
@@ -19,13 +18,13 @@ export default function AccountMenu() {
   const open = Boolean(anchorEl);
 
   const dispatch = useAppDispatch();
-  const { auth } = useAppSelector(state => state.auth);
+  const { isAuthenticated } = useAppSelector(state => state.auth);
 
   const navigate = useNavigate();
 
   const handleIconClick = (event: React.MouseEvent<HTMLElement>) => {
     // if (true) {
-    if (auth) {
+    if (isAuthenticated) {
       setAnchorEl(event.currentTarget);
     } else {
       dispatch(openSignIn());
@@ -39,7 +38,7 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title={auth ? 'Account settings' : 'Sign In'}>
+        <Tooltip title={isAuthenticated ? 'Account settings' : 'Sign In'}>
           <IconButton
             onClick={handleIconClick}
             // onMouseEnter={handleIconClick}

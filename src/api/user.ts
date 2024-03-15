@@ -7,7 +7,7 @@ export const getUserInfo = (userId: number) => {
 };
 
 export const createUser = (data: RegistrationType) => {
-  return client.post<RegistrationType>('/auth/register', data);
+  return client.post<RegistrationType>('/auth/registration', data);
 };
 
 export const loginUser = (

@@ -1,0 +1,102 @@
+@import './../../../style/extends';
+
+.RecipeDetailCard {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: repeat(12, 2fr);
+
+  @extend %body-text;
+
+  &__top {
+    display: flex;
+    grid-column: span 12;
+    justify-content: space-between;
+  }
+
+  &__top-left {
+    display: flex;
+    grid-column: span 12;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+  }
+
+  &__top-right {
+    display: flex;
+    gap: 18px;
+    grid-column: span 12;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    grid-column: 3/-3;
+
+    @extend %h1
+  }
+
+  &__image {
+    grid-column: span 8;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  // &__nutritions-block {
+  //   grid-column: span 4;
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 16px;
+  // }
+
+  &__nutritions {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__nutrition {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__summary {
+    grid-column: span 12;
+  }
+
+  // &__block {
+  //   grid-column: span 8;
+  // }
+
+  &__ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+  }
+
+  &__ingredient {
+    grid-column: span 8;
+    display: flex;
+    gap: 24px;
+  }
+
+  &__steps {
+    display: flex;
+    grid-column: span 8;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+  }
+
+  &__step-top {
+    display: flex;
+    gap: 24px;
+  }
+
+}

@@ -16,6 +16,9 @@ const visibleCategories = [...categories].slice(0, 7);
 
 const HomePage: React.FC = () => {
   const { recipes } = useAppSelector(state => state.recipes);
+
+  console.log(recipes);
+
   const popularRecipes = [...recipes]
     .sort((a, b) => {
       return a.rating - b.rating;

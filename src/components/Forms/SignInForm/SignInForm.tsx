@@ -19,6 +19,8 @@ import { loginUser } from '../../../api/user';
 import { validateForm } from '../../../helpers/form/validateForm';
 import { PWD_REGEX } from '../../../helpers/staticData';
 import { z } from 'zod';
+import { useAppDispatch } from '../../../store/hooks';
+import { loginSuccess } from '../../../features/authSlice';
 
 const useStyles = makeStyles({
   form: {
@@ -36,6 +38,8 @@ interface FormData {
 }
 
 const SignInForm = () => {
+  const dispatch = useAppDispatch();
+
   const [user, setUser] = useState<FormData>({
     email: '',
     pwd: '',
@@ -87,9 +91,15 @@ const SignInForm = () => {
       const result = await validateForm<FormData>(user, formSchema);
 
       if (result.isValid) {
-        const response = await loginUser(user);
+        try {
+          const response = await loginUser(user);
 
-        console.log('response', response);
+          dispatch(loginSuccess(response));
+          console.log('response', response);
+        } catch (error) {
+          console.error(error);
+        }
+
       } else {
         console.log(result.formErrors);
         Object.entries(result.formErrors).forEach(([key, msg]) =>

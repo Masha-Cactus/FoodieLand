@@ -27,7 +27,8 @@
     "sass": "^1.70.0",
     "swiper": "^11.0.5",
     "usehooks-ts": "^2.12.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zod": "^3.22.4"
   },
   "scripts": {
     "start": "react-scripts start",

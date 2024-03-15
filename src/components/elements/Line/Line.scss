@@ -1,0 +1,12 @@
+@import './../../../style/variables';
+
+.Line {
+  height: 1px;
+  width: 100%;
+  background-color: $grey;
+
+  &--vertical {
+    width: 1px;
+    height: 100%;
+  }
+}
