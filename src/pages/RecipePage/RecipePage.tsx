@@ -18,6 +18,8 @@ const RecipePage: React.FC<Props> = ({}) => {
     dispatch(fetchRecipeById(+recipeId || null));
   }, [dispatch, recipeId]);
 
+  console.log('selectedRecipe', selectedRecipe);
+
   return (
     <section className='RecipePage'>
       {selectedRecipe ? (

@@ -30,19 +30,19 @@ const RecipeDetailCard: React.FC<Props> = ({ recipe }) => {
       </div>
 
       <img
-        src={recipe.image}
+        src={recipe.imageUrl}
         alt="recipe image"
         className='RecipeDetailCard__image'
       />
       {/* <div className="RecipeDetailCard__nutritions-block"> */}
-      <ul className="RecipeDetailCard__nutritions">
+      {/* <ul className="RecipeDetailCard__nutritions">
         {Object.entries(recipe.nutritions).map(([key, value]) => (
           <li key={key} className="RecipeDetailCard__nutrition">
             <p className="RecipeDetailCard__nutrition-key">{capitalize(key)}</p>
             <p className="RecipeDetailCard__nutrition-value">{value}</p>
           </li>
         ))}
-      </ul>
+      </ul> */}
       {/* <h5 className='RecipeDetailCard__h5'>Nutrition Information</h5>
         {Object.entries(recipe.nutritions).map(([key, value]) => (
           <div key={key} className="RecipeDetailCard__nutrition">

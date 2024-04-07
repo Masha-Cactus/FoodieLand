@@ -27,7 +27,10 @@ export const fetchRecipes = createAsyncThunk(
     const response = await getRecipes();
     const recipes = response.content;
 
+    // console.log('response', response);
+
     return recipes;
+    // return response;
   },
 );
 

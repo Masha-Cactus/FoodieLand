@@ -17,7 +17,7 @@ export const getRecipes = () => {
 };
 
 export const getRecipeById = (recipeId: number | null) => {
-  return client.get<RecipeDetailType>(`/recipe/${recipeId}`);
+  return client.get<RecipeDetailType>(`api/recipe/${recipeId}`);
   // return client.get<RecipeDetailType>('https://masha-cactus.github.io/recipeById.json');
   // return client.get<RecipeDetailType>('/recipeById.json');
 };

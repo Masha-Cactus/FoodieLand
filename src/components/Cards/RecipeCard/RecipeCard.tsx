@@ -10,7 +10,7 @@ type Props = {
 };
 
 const RecipeCard: React.FC<Props> = ({ recipe }) => {
-  const { recipeId, title, cookingTimeInMinutes, category, image } = recipe;
+  const { recipeId, title, cookingTimeInMinutes, category, imageUrl } = recipe;
 
 
   return (
@@ -21,7 +21,7 @@ const RecipeCard: React.FC<Props> = ({ recipe }) => {
         className="RecipeCard__link"
       >
         <img
-          src={image}
+          src={imageUrl}
           alt={`${title} image`}
           className="RecipeCard__image"
         />
@@ -29,7 +29,7 @@ const RecipeCard: React.FC<Props> = ({ recipe }) => {
 
       <div className="RecipeCard__info">
         <TimeIcon time={cookingTimeInMinutes} />
-        <MealTypeIcon type={category[0]} />
+        {/* <MealTypeIcon type={category[0]} /> */}
         <Rating />
       </div>
       <Link

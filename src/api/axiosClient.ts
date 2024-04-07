@@ -6,10 +6,10 @@ const instance = axios.create({
   // baseURL: 'https://api.spoonacular.com/recipes/',
   // baseURL: '',
   baseURL: 'http://localhost:8080/',
-  headers: {
-    // 'Autorization': `Bearer ${key}`,
-    AccessControlAllowOrigin: '*',
-  },
+  // headers: {
+  //   // 'Autorization': `Bearer ${key}`,
+  //   AccessControlAllowOrigin: '*',
+  // },
 });
 
 export const client = {
